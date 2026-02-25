@@ -1,3 +1,4 @@
+using TodoApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,6 +17,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+List<TaskItem> tasks = new List<TaskItem>();
+//endpoints here
 
+app.MapPost("/tasks", (CreateTaskDto dto) => 
+{
+    var task = new TaskItem(dto.Title, dto.Description);
+    tasks.Add(task);
+    return Results.Created("/tasks", task);
+});
 app.Run();
 
