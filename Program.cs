@@ -1,6 +1,7 @@
 using TodoApi.Models;
 using System.Text.Json.Serialization;
 using System.Linq;
+using TodoApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddSingleton<TaskService>();
 
 builder.Services.ConfigureHttpJsonOptions( options => 
 {
