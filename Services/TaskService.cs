@@ -3,7 +3,7 @@ using System.Linq;
 using TaskStatus = TodoApi.Models.TaskStatus;
 namespace TodoApi.Services;
 
-public class TaskService{
+public class TaskService : ITaskService{
 
     private readonly List<TaskItem> _tasks = new ();
     private int _nextId = 1;
