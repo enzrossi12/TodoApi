@@ -2,6 +2,9 @@ using TodoApi.Models;
 using System.Text.Json.Serialization;
 using System.Linq;
 using TodoApi.Services;
+using TodoApi.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +18,9 @@ builder.Services.ConfigureHttpJsonOptions( options =>
 {
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

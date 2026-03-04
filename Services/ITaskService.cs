@@ -3,9 +3,9 @@ using TodoApi.Models;
 
 public interface ITaskService
 {
-    IEnumerable<TaskItem> GetAll();
-    TaskItem? GetById(int id);
-    TaskItem Create(string title, string description);
-    bool Delete(int id);
-    TaskItem? Update(int id, string? title, string? description, TaskStatus? status);
+    Task<List<TaskItem>> GetAllAsync();
+    Task<TaskItem?> GetByIdAsync(int id);
+    Task<TaskItem> CreateAsync(string title, string description);
+    Task<bool> DeleteAsync(int id);
+    Task<TaskItem?> UpdateAsync(int id, string? title, string? description, TaskStatus? status);
 }

@@ -1,0 +1,21 @@
+# Build
+bin/
+obj/
+
+# User files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+
+# Logs
+*.log
+
+# SQLite database (opcional se quiser versionar o schema só por migrations)
+*.db

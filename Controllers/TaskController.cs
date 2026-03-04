@@ -24,16 +24,16 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var allTasks = _taskService.GetAll();
+        var allTasks = await _taskService.GetAllAsync();
         return Ok(allTasks);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetById (int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var taskById = _taskService.GetById(id);
+        var taskById = await _taskService.GetByIdAsync(id);
         if (taskById == null){
             return NotFound();
         }
