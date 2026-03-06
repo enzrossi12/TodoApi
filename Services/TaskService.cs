@@ -8,44 +8,44 @@ public class TaskService : ITaskService{
     private readonly List<TaskItem> _tasks = new ();
     private int _nextId = 1;
 
-    public TaskItem Create(string title, string description){
+    public Task<TaskItem> CreateAsync(string title, string description){
 
         var task = new TaskItem(title, description);
         task.Id = _nextId;
         _nextId++;
         _tasks.Add(task);
-        return task;
+        return Task.FromResult(task);
 
     }
 
-    public IEnumerable<TaskItem> GetAll()
+    public Task<List<TaskItem>> GetAllAsync()
     {
-        return _tasks.ToList();
+        return Task.FromResult(_tasks.ToList());
     }
 
-    public TaskItem? GetById(int id)
+    public Task<TaskItem?> GetByIdAsync(int id)
     {
         var task = _tasks.FirstOrDefault(t => t.Id == id);
-        return task;
+        return Task.FromResult(task);
     }
 
-    public bool Delete(int id)
+    public Task<bool> DeleteAsync(int id)
     {
         var task = _tasks.FirstOrDefault(t => t.Id == id);
 
         if (task == null){
-        return false;
+        return Task.FromResult(false);
         }
         _tasks.Remove(task);
 
-        return true; 
+        return Task.FromResult(true); 
     }
 
-    public TaskItem? Update(int id, string? title, string? description, TaskStatus? status)
+    public Task<TaskItem?> UpdateAsync(int id, string? title, string? description, TaskStatus? status)
     {
         var task = _tasks.FirstOrDefault(t => t.Id == id);
         if(task == null){
-            return null;
+            return Task.FromResult<TaskItem?>(null);
         }
         if (title != null) {
             task.Title = title;
@@ -57,6 +57,6 @@ public class TaskService : ITaskService{
             task.Status = status.Value;
         }
 
-        return task; 
+        return Task.FromResult<TaskItem?>(task); 
     }
 }

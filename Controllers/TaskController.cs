@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TodoApi.Services;
 using TodoApi.Models;
-using TodoApi.Services;
 
 namespace TodoApi.Controllers;
 
@@ -17,9 +16,9 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(CreateTaskDto dto)
+    public async Task<IActionResult> Create(CreateTaskDto dto)
     {
-        var createdTask = _taskService.Create(dto.Title, dto.Description); 
+        var createdTask = await _taskService.CreateAsync(dto.Title, dto.Description); 
         return Created($"/api/tasks/{createdTask.Id}", createdTask);
     }
 
@@ -43,9 +42,9 @@ public class TasksController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var deletedTask =_taskService.Delete(id);
+        var deletedTask = await _taskService.DeleteAsync(id);
         if (!deletedTask){
             return NotFound();
         }
@@ -54,9 +53,9 @@ public class TasksController : ControllerBase
     }
 
     [HttpPatch("{id}")]
-    public IActionResult Update(int id, UpdateTaskDto dto)
+    public async Task<IActionResult> Update(int id, UpdateTaskDto dto)
     {
-        var updatedTask = _taskService.Update(id, dto.Title, dto.Description, dto.Status);
+        var updatedTask = await _taskService.UpdateAsync(id, dto.Title, dto.Description, dto.Status);
         if (updatedTask == null){
             return NotFound();
         }
