@@ -33,8 +33,14 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var taskById = await _taskService.GetByIdAsync(id);
-        if (taskById == null){
-            return NotFound();
+        if (taskById == null)
+        {
+            return NotFound(new
+            {
+                code = "TASK_NOT_FOUND",
+                message = "Tarefa nao encontrada.",
+                id
+            });
         }
 
         return Ok(taskById);
@@ -45,8 +51,14 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         var deletedTask = await _taskService.DeleteAsync(id);
-        if (!deletedTask){
-            return NotFound();
+        if (!deletedTask)
+        {
+            return NotFound(new
+            {
+                code = "TASK_NOT_FOUND",
+                message = "Tarefa nao encontrada.",
+                id
+            });
         }
 
         return NoContent();
@@ -56,8 +68,14 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> Update(int id, UpdateTaskDto dto)
     {
         var updatedTask = await _taskService.UpdateAsync(id, dto.Title, dto.Description, dto.Status);
-        if (updatedTask == null){
-            return NotFound();
+        if (updatedTask == null)
+        {
+            return NotFound(new
+            {
+                code = "TASK_NOT_FOUND",
+                message = "Tarefa nao encontrada.",
+                id
+            });
         }
         return Ok(updatedTask);
     }
